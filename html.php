@@ -10,6 +10,9 @@ class html{
     public static function div($open = true):void{
         echo $open ? "<div>".PHP_EOL:"</div>".PHP_EOL;
     }
+    public static function head($open = true):void{
+        echo $open ? "<head>".PHP_EOL:"</head>".PHP_EOL;
+    }
 }
 
 

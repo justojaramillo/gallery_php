@@ -1,6 +1,6 @@
 <?php 
-require_once "includes/header.php"; 
 require_once "config.php"; 
+require_once "html.php"; 
 
 if (isset($_SESSION["username"])) {
   header("location: index.php");
@@ -18,12 +18,13 @@ if (isset($_POST["submit"])) {
     $insert->execute([":email"=>$email, ":username"=>$username, ":passwd"=>password_hash($passwd,PASSWORD_DEFAULT)]);
   }
 }
-
-
 ?>
 
 
-
+<html lang="en">
+ <?php require_once("includes/head.php"); ?>
+ <body>
+ <?php require_once("includes/header.php"); ?>
 
 <main class="form-signin w-50 m-auto">
   <form method="POST" action="register.php">
