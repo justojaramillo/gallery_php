@@ -7,6 +7,7 @@ require_once("html.php");
     <div id="loader"></div>
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
+    
 <?php html::div(false); ?>
 <nav class="navbar navbar-expand-lg">
     <div class="container">

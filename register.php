@@ -29,21 +29,21 @@ if (isset($_POST["submit"])) {
 <main class="form-signin w-50 m-auto">
   <form method="POST" action="register.php">
    
-    <h1 class="h3 mt-5 fw-normal text-center">Please Register</h1>
+    <h1 class="h3 mt-5 fw-normal text-center mb-5">Please Register</h1>
 
-    <div class="form-floating">
-      <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+    <div class="form-floating mb-2">
       <label for="floatingInput">Email address</label>
+      <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
     </div>
 
-    <div class="form-floating">
-      <input name="username" type="text" class="form-control" id="floatingInput" placeholder="username">
+    <div class="form-floating mb-2">
       <label for="floatingInput">Username</label>
+      <input name="username" type="text" class="form-control" id="floatingInput" placeholder="username">
     </div>
 
-    <div class="form-floating">
-      <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <div class="form-floating mb-5">
       <label for="floatingPassword">Password</label>
+      <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
     </div>
 
     <button name="submit" class="w-100 btn btn-lg btn-primary" type="submit">register</button>
