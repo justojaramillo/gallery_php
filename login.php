@@ -1,10 +1,13 @@
 <?php
-require_once "config.php"; 
-
-
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 if (isset($_SESSION["username"])) {
   header("location: index.php");
 }
+require_once "config.php"; 
+
+
 
 if (isset($_POST["submit"])) {
   
@@ -14,13 +17,13 @@ if (isset($_POST["submit"])) {
     $email = $_POST["email"];
     $passwd = $_POST["password"];
 
-    $login = $conn->query("SELECT * FROM users WHERE email='$email'");
+    $login = $conn->query("SELECT * FROM user WHERE email='$email'");
     $login->execute();
     $data = $login->fetch(PDO::FETCH_ASSOC);
 
     if ($login->rowCount()>0) {
-      if (password_verify($passwd,$data["passwd"])) {
-        $_SESSION["user_id"] = $data["users_id"];
+      if (password_verify($passwd, $data["password"])) {
+        $_SESSION["user_id"] = $data["user_id"];
         $_SESSION["username"] = $data["username"];
         $_SESSION["email"] = $data["email"];
         header("location: index.php");
