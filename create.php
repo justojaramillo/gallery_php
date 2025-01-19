@@ -1,9 +1,20 @@
 <?php
 require_once "config.php"; 
 require_once "html.php"; 
+
+if (isset($_POST['submit'])) {
+  if (empty($_POST['title']) || empty($_POST['description']) || empty($_POST['img'])) {
+    echo "Some inputs are empty";
+  }else {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $img = $_POST['img'];
+  }
+}
+
 ?>
 
-<!DOCTYPE html>
+<?php html::doctype(); ?>
 <html lang="en">
   <?php require_once("includes/head.php"); ?>
   <body>
@@ -22,12 +33,11 @@ require_once "html.php";
             <h2 class="col-6 tm-text-primary">
                 Create Photo
             </h2>
-           
         </div>
         <div class="row mb-4">
 
 
-	     <form method="" action="" enctype="multipart/form-data">
+	     <form method="POST" action="create.php" enctype="multipart/form-data">
 	              <!-- Email input -->
 	              <div class="form-outline mb-4">
 	                <input type="text" name="title" id="form2Example1" class="form-control" placeholder="title" />

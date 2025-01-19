@@ -29,7 +29,15 @@ $user_id = $_SESSION['user_id']??'guest';
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <?php if(isset($_SESSION['username'])): ?>
+                <?php if(isset($_SESSION['username'])): ?>    
+                <li class="nav-item">
+                    <a
+                    class="nav-link nav-link-1 active"
+                    aria-current="page"
+                    href=""
+                    ><?= $_SESSION['username'] ?></a>
+                </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a
                     class="nav-link nav-link-1 active"
@@ -37,31 +45,32 @@ $user_id = $_SESSION['user_id']??'guest';
                     href="photos.php"
                     >Photos</a>
                 </li>
+                <?php if(isset($_SESSION['username'])): ?>
                 <li class="nav-item">
                     <a
                     class="nav-link nav-link-1 active"
                     aria-current="page"
                     href="create.php"
-                    >create</a>
+                    >Create</a>
                 </li>
                 <li class="nav-item">
                     <a
                     class="nav-link nav-link-1 active"
                     aria-current="page"
                     href="logout.php"
-                    >logout</a>
+                    >Logout</a>
                 </li>
                 <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link nav-link-1 active"
                     aria-current="page"
                     href="register.php"
-                    >register</a>
+                    >Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-1 active" aria-current="page"
                     href="login.php"
-                    >login</a>
+                    >Login</a>
                 </li>
                 <?php endif; ?>
             </ul>
