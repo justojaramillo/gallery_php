@@ -1,14 +1,28 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+if (!isset($_SESSION["username"])) {
+  header("location: index.php");
+}
 require_once "config.php"; 
 require_once "html.php"; 
 
 if (isset($_POST['submit'])) {
-  if (empty($_POST['title']) || empty($_POST['description']) || empty($_POST['img'])) {
+  if (empty($_POST['title']) || empty($_POST['description']) || empty($_FILES['img'])) {
     echo "Some inputs are empty";
   }else {
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $img = $_POST['img'];
+    $img = $_FILES['img']['name'];
+    $dir = 'img/'.basename($img);
+
+    $insert = $conn->prepare("INSERT INTO image(title, description, image, username) VALUES (:title, :description, :image, :username)");
+    $insert->execute([":title"=>$title, ":description"=>$description, ":img"=>$img,":username"=>$_SESSION['username']]);
+
+    if (move_uploaded_file($_FILES['img']['tmp_name'], $dir)) {
+      header("location: index.php");
+    }
   }
 }
 
