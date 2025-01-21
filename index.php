@@ -2,9 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+require_once("config.php");
 require_once("html.php");
 ?>
-<!DOCTYPE html>
+<?php html::doctype(); ?>
 <html lang="en">
   <?php require_once("includes/head.php"); ?>
   <body>
@@ -23,71 +24,35 @@ require_once("html.php");
         </form> -->
     </div>
 
+    <?php
+    $select = $conn->prepare("SELECT * FROM image");
+    $select->execute();
+    $rows = $select->fetchAll(PDO::FETCH_OBJ);
+    ?>
     <div class="container tm-container-content tm-mt-60">
       <div class="row mb-4">
         <h2 class="col-6 tm-text-primary">Latest Photos</h2>
       </div>
+
+
       <div class="row tm-mb-90 tm-gallery">
+        <?php foreach($rows as $row): ?>
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
           <figure class="effect-ming tm-video-item">
-            <img src="img/img-03.jpg" alt="Image" class="img-fluid" />
+            <img src="img/<?= $row->image; ?>" alt="Image" class="img-fluid" />
             <figcaption
               class="d-flex align-items-center justify-content-center"
             >
-              <h2>Clocks</h2>
-              <a href="photo-detail.html">View more</a>
+              <h2><?= $row->title; ?></h2>
+              <a href="photo-detail.php?image_id=<?= $row->image_id; ?>">View more</a>
             </figcaption>
           </figure>
           <div class="d-flex justify-content-between tm-text-gray">
-            <span class="tm-text-gray-light">18 Oct 2020</span>
-            <span>by Mohamed Hassan</span>
+            <span class="tm-text-gray-light"><?= $row->created_at; ?></span>
+            <span>by <?= $row->username; ?></span>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-          <figure class="effect-ming tm-video-item">
-            <img src="img/img-04.jpg" alt="Image" class="img-fluid" />
-            <figcaption
-              class="d-flex align-items-center justify-content-center"
-            >
-              <h2>Plants</h2>
-              <a href="photo-detail.html">View more</a>
-            </figcaption>
-          </figure>
-          <div class="d-flex justify-content-between tm-text-gray">
-            <span class="tm-text-gray-light">14 Oct 2020</span>
-            <span>by Mohamed Hassan</span>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-          <figure class="effect-ming tm-video-item">
-            <img src="img/img-05.jpg" alt="Image" class="img-fluid" />
-            <figcaption
-              class="d-flex align-items-center justify-content-center"
-            >
-              <h2>Morning</h2>
-              <a href="photo-detail.html">View more</a>
-            </figcaption>
-          </figure>
-          <div class="d-flex justify-content-between tm-text-gray">
-            <span class="tm-text-gray-light">12 Oct 2020</span>
-            <span>by Mohamed Hassan</span>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-          <figure class="effect-ming tm-video-item">
-            <img src="img/img-06.jpg" alt="Image" class="img-fluid" />
-            <figcaption
-              class="d-flex align-items-center justify-content-center"
-            >
-              <h2>Pinky</h2>
-              <a href="photo-detail.html">View more</a>
-            </figcaption>
-          </figure>
-          <div class="d-flex justify-content-between tm-text-gray">
-            <span class="tm-text-gray-light">10 Oct 2020</span>
-            <span>by Mohamed Hassan</span>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </div>
       <!-- row -->
     </div>

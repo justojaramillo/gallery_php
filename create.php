@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     $dir = 'img/'.basename($img);
 
     $insert = $conn->prepare("INSERT INTO image(title, description, image, username) VALUES (:title, :description, :image, :username)");
-    $insert->execute([":title"=>$title, ":description"=>$description, ":img"=>$img,":username"=>$_SESSION['username']]);
+    $insert->execute([":title"=>$title, ":description"=>$description, ":image"=>$img,":username"=>$_SESSION['username']]);
 
     if (move_uploaded_file($_FILES['img']['tmp_name'], $dir)) {
       header("location: index.php");
