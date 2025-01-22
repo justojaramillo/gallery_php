@@ -48,7 +48,7 @@ require_once("html.php");
             </figcaption>
           </figure>
           <div class="d-flex justify-content-between tm-text-gray">
-            <span class="tm-text-gray-light"><?= $row->created_at; ?></span>
+            <span class="tm-text-gray-light"><?= date_format(date_create($row->created_at),"M, d, Y"); ?></span>
             <span>by <?= $row->username; ?></span>
           </div>
         </div>
