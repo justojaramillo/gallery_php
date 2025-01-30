@@ -2,6 +2,8 @@
 require_once "config.php"; 
 require_once "html.php";
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +27,10 @@ require_once "html.php";
             $select = $conn->prepare("SELECT * FROM image WHERE image_id=:image_id");
             $select->execute([":image_id"=>$image_id]);
             $row = $select->fetch(PDO::FETCH_OBJ);
+
+            $select_all = $conn->prepare("SELECT * FROM image WHERE image_id<>:image_id");
+            $select_all->execute([":image_id"=>$image_id]);
+            $all_images = $select_all->fetchAll(PDO::FETCH_OBJ);
         }
         ?>
         <div class="row mb-4">
@@ -39,7 +45,7 @@ require_once "html.php";
                   
                     <div class="mb-4">
                         <h3 class="tm-text-gray-dark">Description</h3>
-                        <p><?= $row->description ?></p>
+                        <p><?= substr($row->description,0,300) ?></p>
                     </div>
                    
                 </div>
@@ -53,58 +59,21 @@ require_once "html.php";
             </h2>
         </div>
         <div class="row mb-3 tm-gallery">
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <figure class="effect-ming tm-video-item">
-                    <img src="img/img-04.jpg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Clocks</h2>
-                        <a href="photo-detail.html">View more</a>
-                    </figcaption>                    
-                </figure>
-                <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">18 Oct 2020</span>
-                    <span>by Mohamed Hassan</span>
-                </div>
-            </div>
+            <?php foreach($all_images as $image): ?>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-03.jpg" alt="Image" class="img-fluid">
+                    <img src="img/<?= $image->image; ?>" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Clocks</h2>
-                        <a href="photo-detail.html">View more</a>
+                        <h2><?= $image->title; ?></h2>
+                        <a href="photo-detail.php?image_id=<?= $image->image_id ?>">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">18 Oct 2020</span>
-                    <span>by Mohamed Hassan</span>
+                    <span class="tm-text-gray-light"><?= date_format(date_create($row->created_at),"M, d, Y"); ?></span>
+                    <span>by <?= $image->username; ?></span>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <figure class="effect-ming tm-video-item">
-                    <img src="img/img-02.jpg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Clocks</h2>
-                        <a href="photo-detail.html">View more</a>
-                    </figcaption>                    
-                </figure>
-                <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">18 Oct 2020</span>
-                    <span>by Mohamed Hassan</span>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <figure class="effect-ming tm-video-item">
-                    <img src="img/img-01.jpg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Clocks</h2>
-                        <a href="photo-detail.html">View more</a>
-                    </figcaption>                    
-                </figure>
-                <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">18 Oct 2020</span>
-                    <span>by Mohamed Hassan</span>
-                </div>
-            </div>       
+            <?php endforeach; ?>
         </div> <!-- row -->
     </div> <!-- container-fluid, tm-container-content -->
 

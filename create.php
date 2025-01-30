@@ -10,7 +10,7 @@ require_once "html.php";
 
 if (isset($_POST['submit'])) {
   if (empty($_POST['title']) || empty($_POST['description']) || empty($_FILES['img'])) {
-    echo "Some inputs are empty";
+    echo "<div class='alert alert-danger bg-red text-white'>Some inputs are empty</div>";
   }else {
     $title = $_POST['title'];
     $description = $_POST['description'];
